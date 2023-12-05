@@ -1,0 +1,74 @@
+.main {
+    background-image: linear-gradient(to bottom, #bacec1, white); 
+    min-height: calc(100vh - 85px); 
+    padding:30px 0px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.main > div {
+    width: 100%;
+}
+
+.main div h2 {
+    color: black;
+    margin-bottom: 25px;
+}
+
+.description {
+    width: 60%;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    outline: none;
+    border: solid #bacec1 1px;
+}
+
+
+fieldset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+fieldset input {
+    color: black;
+    text-align: center;
+    padding: 5px;
+    margin: 3px 0px;
+    border-radius: 5px;
+    outline: none;
+    border: solid #bacec1 1px;
+}
+.close-icon {
+    margin-left: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+.select-type label {
+    font-size: 20px;
+    color: black;
+}
+.select-type label:first-child {
+    margin-right: 15px;
+}
+.select-type label:nth-child(2) {
+    margin-left: 15px;
+}
+.select-type input {
+    margin: 10px;
+}
+
+.question_btn {
+    font-size: 20px !important;
+    padding: 6px 20px !important;
+}
+.question_btn.mr-5 {
+    margin-right: 5px;
+}
+.question_btn.ml-5 {
+    margin-left: 5px;
+}

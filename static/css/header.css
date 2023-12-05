@@ -1,0 +1,51 @@
+label {
+    cursor: pointer;
+}
+
+p {
+    color : black;
+}
+header, nav {
+    color: #ffffe0;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav div a {
+    color: #000000;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 17px;
+    font-weight: bold;
+    align-self: center;
+}
+
+nav div a.home {
+    float: left;
+}
+
+.inner {
+    width: 1300px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home {
+    margin-right: auto;
+}
+
+.logout_btn {
+    padding: 9.75px 17px;
+    border-radius: 10px;
+    background-color: #fae100;
+    color: #371d12;
+    font-weight: bold;
+    border: None;
+}

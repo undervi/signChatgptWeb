@@ -1,15 +1,58 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Django</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1><a href="/">Django</a></h1>
-        <ol>
-            <li><a href="/chatgpt/">ChatGPT API 사용</a></li>
-            <li><a href="/signlanguagetochatgpt/">수어-ChatGPT 연동</a></li>
-        </ol>
-        <h2>Django</h2>
-        <p><a href="https://www.djangoproject.com/" target="_blank">Django</a>는 Python으로 작성된 오픈 소스 웹 프레임워크로, 빠르고 쉬운 웹 개발을 가능하게 합니다.</p>
-    </body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+<style>
+    .card {
+        transition: transform 0.3s ease !important;
+    }
+
+    .card:hover {
+        transform: scale(1.05) !important;
+    }
+</style>
+{% endblock %}
+
+
+    {% block content %}
+    <div class="hero text-center text-white" style="background-image: linear-gradient(to bottom, #bacec1, white); min-height: calc(100vh - 85px); display: flex; justify-content: center; align-items: center;">
+        <div>
+
+            <div>
+            <h1 class="display-3" style = 'color : black;'>수어 번역 서비스</h1>
+            <p class="lead">
+                고품질의 수어 번역 서비스를 목적으로 청각 장애인의 정보 접근성을 개선하고 궁극적으로는 청각 장애인의 삶의 질과 사회적 참여를 높이는데 기여하고자 합니다.
+            </p>
+            </div>
+            
+            <div style="margin-bottom: 40px;"></div>
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/1600x900/?chatGPT" class="card-img-top" alt="gpt">
+                            <div class="card-body">
+                                <a href="/chatgpt/" class="btn btn-primary">ChatGPT 둘러보기</a>
+                                <p class="card-text">ChatGPT를 이용해봅니다</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/1600x900/?happy-people" class="card-img-top" alt="sign">
+                            <div class="card-body">
+                                <a href="/signlanguagetochatgpt/" class="btn btn-primary">수어 번역 서비스</a>
+                                <p class="card-text">수어 번역 서비스를 이용해봅니다</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

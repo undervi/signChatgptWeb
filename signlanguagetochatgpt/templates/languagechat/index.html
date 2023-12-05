@@ -1,41 +1,43 @@
+{% extends 'base.html' %}
+
 {% load static %}
 {% block extrahead %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="{% static 'languagechat/style.css' %}">
-<script>
-    let idNum = 0;
-    function addFile(){
-        deepCopy();
-    }
-
-    function deepCopy()  {
-      // 'test' node 선택
-      const fileModule = document.getElementById('file-module-'+idNum);
-
-
-
-      // 노드 복사하기 (deep copy)
-      const newNode = fileModule.cloneNode(true);
-
-      console.log(newNode)
-
-      // 복사된 Node id 변경하기
-      idNum++;
-      newNode.id = 'file-module-' + idNum;
-
-      // 복사한 노드 붙여넣기
-      fileModule.after(newNode);
-    }
-</script>
+<script src="{% static 'languagechat/js/chat.js' %}" defer></script>
 {% endblock %}
-<form action="chat" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <span id="file-module-0">
-        <fieldset>
-            <legend><h1>파일 업로드</h1></legend>
-            <input name="files" type="file">
 
-        </fieldset>
-    </span>
-    <button onclick="addFile()" type="button">파일 추가 </button>
-    <div><input type="submit" value="ChatGPT에게 수어로 문의하기"></div>
-</form>
+{% block content %}
+<div class="hero text-center text-white main">
+    <div>
+        <h2 class="display-4 mt-3">수어로 ChatGPT에게 요청하기</h2>
+        <div class="description mb-5">
+            <p class="lead m-0" style="text-align: left;">
+                1. 수어 사진을 업로드 합니다. <br/>
+                2. 사진을 더 추가하고 싶으면 "파일 추가" 버튼을 클릭하면 됩니다.<br/>
+                3. AI 모델을 통해 수어가 번역되고, 번역된 문장이 ChatGPT에 요청됩니다.<br/>
+                4. 답변이 길어질 경우 로딩 시간이 오래 걸릴 수 있습니다.
+            </p>
+        </div>
+
+        <form action="chat" method="post" enctype="multipart/form-data" id="sign-form">
+            {% csrf_token %}
+            <span id="file-module-0">
+                <fieldset>
+                    <input name="files" type="file" class="img-file">
+                    <a onClick="fileDel('file-module-0')" title="삭제" class="del-btn">
+                        <span class="material-icons close-icon">close</span>
+                    </a>
+                </fieldset>
+            </span>
+            <div class="select-type my-4">
+                <label><input type="radio" value="text" name="type" checked />  텍스트로 답변받기</label>
+                <label><input type="radio" value="image" name="type"/>  이미지로 답변받기</label>
+            </div>
+            <button onclick="addFile()" type="button" class="btn btn-primary question_btn mr-5">파일 추가 </button>
+            <input id="form-submit" type="submit" class="btn btn-primary question_btn ml-5" value="질문 하기">
+        </form>
+    </div>
+</div>
+{% endblock %}

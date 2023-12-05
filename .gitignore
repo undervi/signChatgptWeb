@@ -1,2 +1,4 @@
-.DS_Store
 .git/
+secrets.json
+media/
+db.sqlite3

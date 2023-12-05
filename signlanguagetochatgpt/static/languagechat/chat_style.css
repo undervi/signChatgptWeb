@@ -1,0 +1,46 @@
+.main {
+    background-image: linear-gradient(to bottom, #bacec1, white); 
+    min-height: calc(100vh - 85px); 
+    padding:30px 0px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.main > div {
+    width: 100%;
+}
+
+.main div h2 {
+    color: black;
+    margin-bottom: 25px;
+}
+
+textarea {
+  width: 60%;
+  height: 200px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  resize: None !important;
+  border: solid #bacec1 1px;
+  outline: None;
+  margin-bottom: 10px !important;
+  font-size: 20px !important;
+}
+
+.response div {
+  width: 60%;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: solid #bacec1 1px;
+}
+
+.response div p {
+  font-size: 20px;
+  white-space: pre-line;
+  margin-bottom: 0px;
+}

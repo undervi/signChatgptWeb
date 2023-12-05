@@ -1,16 +1,38 @@
+{% extends 'base.html' %}
+
 {% load static %}
 {% block extrahead %}
 <link rel="stylesheet" href="{% static 'gtp/style.css' %}">
 {% endblock %}
-<form action="chat" method="post" entype="application/x-www-form-urlencoded">
-    {% csrf_token %}
-    <div id="file-module-0">
-        <label>chatgtp에게 요청하기</label>
-        <textarea id="question" name="question">{{question}}</textarea>
-    </div>
+
+{% block content %}
+<div class="hero text-center text-white main">
     <div>
-      <label>응답</label>
-      <span id="result">{{result}}</span>
-  </div>
-    <div><button id="text-button" type="submit" >질문</button></div>
-</form>
+        <h2 class="display-4 mt-3">ChatGPT에게 요청하기</h2>
+        <p class="lead mb-5">
+            답변이 길어질 경우 로딩 시간이 오래 걸릴 수 있습니다.
+        </p>
+
+        <form action="chat" method="post" entype="application/x-www-form-urlencoded">
+            {% csrf_token %}
+            <div id="file-module-0">
+                <textarea id="question" name="question" placeholder="질문을 입력해 주세요.">{{question}}</textarea>
+                <div class="select-type mt-2">
+                    <label><input type="radio" value="text" name="type" {% if type != 'image' %}checked{% endif %}/>  텍스트로 답변받기</label>
+                    <label><input type="radio" value="image" name="type" {% if type == 'image' %}checked{% endif %}/>  이미지로 답변받기</label>
+                </div>
+            </div>
+            <div><button id="text-button" class="btn btn-primary my-4 question_btn" type="submit" >질문하기</button></div>
+            <div class="response">
+                <p class="lead mt-5" style="font-weight: bold;">ChatGPT 응답</p>
+                {% if type == 'image' %}
+                    <div id="result"><p><img src="{{result}}"></p></div>
+                {% else %}
+                    <div id="result"><p>{{result}}</p></div>
+                {% endif %}
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
