@@ -1,6 +1,6 @@
 .main {
     background-image: linear-gradient(to bottom, #bacec1, white); 
-    min-height: calc(100vh - 85px); 
+    min-height: calc(100vh - 58.25px); 
     padding:30px 0px; 
     display: flex; 
     align-items: center; 

@@ -7,7 +7,7 @@ p {
 }
 header, nav {
     color: #ffffe0;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     width: 100%;
 }
@@ -22,13 +22,17 @@ nav div a {
     color: #000000;
     text-decoration: none;
     margin: 0 15px;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
     align-self: center;
 }
 
 nav div a.home {
     float: left;
+}
+
+.login-img {
+    width: 85%;
 }
 
 .inner {
@@ -42,7 +46,7 @@ nav div a.home {
 }
 
 .logout_btn {
-    padding: 9.75px 17px;
+    padding: 7.875px 17px;
     border-radius: 10px;
     background-color: #fae100;
     color: #371d12;
