@@ -1,8 +1,8 @@
 from django.shortcuts import render
+from django.conf import settings
 from openai import OpenAI
 
-client = OpenAI(api_key="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")
-# Create your views here.
+client = OpenAI(api_key=settings.CHATGPT_API_KEY)
 
 
 

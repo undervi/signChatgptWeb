@@ -35,6 +35,7 @@ def get_secret(setting):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
+CHATGPT_API_KEY = get_secret("CHATGPT_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
