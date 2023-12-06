@@ -3,6 +3,7 @@
 {% load static %}
 {% block extrahead %}
 <link rel="stylesheet" href="{% static 'board/common.css' %}">
+<link rel="stylesheet" href="{% static 'board/write.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -20,15 +21,15 @@
         <form action="{% url 'board:write' %}" method="post">
             {% csrf_token %}
         
-            <label for="title">제목:</label>
+            <label for="title">제목</label>
             <input type="text" id="title" name="title" required>
             <br>
         
-            <label for="body">내용:</label>
+            <label for="body">내용</label>
             <textarea id="body" name="body" rows="4" required></textarea>
             <br>
         
-            <button type="submit">작성</button>
+            <button type="submit" class="btn btn-primary write_btn">작성</button>
         </form>
 
 

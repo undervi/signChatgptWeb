@@ -1,0 +1,29 @@
+form, form textarea, form input {
+    width: 100%;
+}
+
+label {
+    color: black;
+    margin: 20px 0 10px 0;
+    font-weight: bold;
+}
+
+input, textarea {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: solid #bacec1 1px;
+    outline: None;
+    font-size: 17px !important;
+}
+input {
+    padding: 7px;
+}
+textarea {
+    resize: None !important;
+    padding: 15px;
+    height: 200px;
+}
+
+.write_btn {
+    margin-top: 20px;
+}
