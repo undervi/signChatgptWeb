@@ -19,7 +19,7 @@
         </div>
 
         {% if request.session.user_id %}
-            <div><a class="btn btn-primary mt-2 write_btn" hred="#" style="float:right;">새로운 글 작성</a></div>
+            <div><a class="btn btn-primary mt-2 write_btn" href="{% url 'board:write' %}" style="float:right;">새로운 글 작성</a></div>
         {% endif %}
 
         <table class="table mt-4">

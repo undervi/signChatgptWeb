@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'board/common.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="hero text-center text-white main">
+    <div>
+        <h2 class="display-6 mt-3">자유 게시판</h2>
+        
+        <div class="description mb-2">
+            <p class="lead m-0" style="text-align: left;">
+                1. 커뮤니티 매너를 지켜 즐겁게 소통하며, 자유게시판을 적절하게 이용해 주세요.<br/>
+                2. 비회원은 글이나 댓글 작성이 불가능하며, 조회만 가능합니다.
+            </p>
+        </div>
+
+        <form action="{% url 'board:write' %}" method="post">
+            {% csrf_token %}
+        
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+            <br>
+        
+            <label for="body">내용:</label>
+            <textarea id="body" name="body" rows="4" required></textarea>
+            <br>
+        
+            <button type="submit">작성</button>
+        </form>
+
+
+    </div>
+</div>
+{% endblock %}
+
