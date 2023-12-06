@@ -33,7 +33,7 @@
 
             <tbody class="table-group-divider">
                 {% for post in posts %}
-                    <tr onclick="window.location.href='/board/detail/{{ post.board_id }}/'" class="raw-data">
+                    <tr onclick="window.location.href='/board/detail/{{ post.board_id }}/?page={{ posts.number }}'" class="raw-data">
                         <td style="font-weight: bold;">{{ post.title }}</td>
                         <td>{{ post.user.user_name }}</td>
                         <td>{{ post.created_datetime }}</td>

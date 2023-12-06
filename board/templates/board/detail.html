@@ -33,8 +33,8 @@
             <p>작성일시: {{ post.created_datetime }}</p>
             
             <div class="mt-4">
-                <a href="#" class="btn btn-primary" style="margin-right: 5px;">수정</a>
-                <button onclick="del_post({{ post.board_id }})" class="btn btn-danger" style="margin-left: 5px;">삭제</button>
+                <a href="/board/?page={{ cur_page }}" class="btn btn-primary" style="margin-right: 5px;">목록</a>
+                <button onclick="del_post({{ post.board_id }}, {{ cur_page }})" class="btn btn-danger" style="margin-left: 5px;">삭제</button>
             </div>
         </div>
 

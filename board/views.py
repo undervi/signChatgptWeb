@@ -38,7 +38,7 @@ def board_list(request):
 # 상세
 def board_detail(request, board_id):
     post = get_object_or_404(models.Board, board_id=board_id)
-    return render(request, "board/detail.html", {"post": post})
+    return render(request, "board/detail.html", {"post": post, "cur_page": request.GET.get("page", 1)})
 
 
 # 삭제

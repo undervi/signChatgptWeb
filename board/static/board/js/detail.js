@@ -21,7 +21,7 @@ function getCSRFToken() {
     return null;
 }
 
-function del_post(boardId) {
+function del_post(boardId, curPage) {
     Swal.fire({
         title: '정말 삭제하시겠습니까?',
         text: "삭제한 데이터는 복구할 수 없습니다!",
@@ -50,7 +50,7 @@ function del_post(boardId) {
                     // Toast 메시지가 닫힌 후에 실행
                     if (result.isConfirmed) { // 확인 버튼을 누르면
                         if (response.data.icon == 'success') {
-                            window.location.href = '/board/';
+                            window.location.href = '/board/?page=' + String(curPage); // 게시글 목록으로 이동 (기존 페이지 유지)
                         }
                     }
                 });
