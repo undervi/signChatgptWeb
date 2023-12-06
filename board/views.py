@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from board import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.http import require_POST
+import json
 
 
 # 데코레이터
@@ -19,7 +21,7 @@ def user_id_required(view_func):
 # 목록
 def board_list(request):
     # 게시판 리스트 가져오기 (is_deleted가 True인 것 제외)
-    posts = models.Board.objects.select_related("user").exclude(is_deleted=True).all()
+    posts = models.Board.objects.select_related("user").exclude(is_deleted=True).order_by('-created_datetime').all()
 
     # 페이지 처리
     page = request.GET.get("page", 1) # 기본값 1
@@ -38,11 +40,16 @@ def board_list(request):
 # 상세
 def board_detail(request, board_id):
     post = get_object_or_404(models.Board, board_id=board_id)
-    return render(request, "board/detail.html", {"post": post, "cur_page": request.GET.get("page", 1)})
+    comments = models.Comment.objects.filter(board=post, is_deleted=False).select_related("user").order_by('created_datetime').all()
+    print(comments)
+    return render(request, "board/detail.html", {"post": post, "comments": comments, "cur_page": request.GET.get("page", 1)})
 
 
 # 삭제
-def board_delete(request, board_id):
+@require_POST
+def board_delete(request):
+    json_data = json.loads(request.body.decode('utf-8'))
+    board_id = json_data.get('board_id') 
     post = get_object_or_404(models.Board, board_id=board_id)
     
     if str(request.session.get("user_id", None)) == post.user.user_id:
@@ -55,8 +62,8 @@ def board_delete(request, board_id):
     return JsonResponse(data)
 
 
-@user_id_required
 # 작성
+@user_id_required
 def board_write(request):
     if request.method == "POST":
         # 유저 정보 불러오기
@@ -74,3 +81,25 @@ def board_write(request):
     else:
         # 게시글 작성 페이지로 이동
         return render(request, "board/write.html")
+
+# 댓글 작성   
+@require_POST
+@user_id_required
+def comment_write(request):
+    # 유저 정보 불러오기
+    session_user_id = request.session.get("user_id", None)
+    if models.Users.objects.filter(user_id=session_user_id).exists():
+        user = models.Users.objects.get(user_id=session_user_id)
+    
+    board_id = request.POST.get("board_id")
+    cur_page = request.POST.get("cur_page", 1)
+    
+    # 댓글 작성 로직
+    comment = models.Comment.objects.create(
+        user = user,
+        board = models.Board.objects.get(board_id=board_id),
+        comment_content = request.POST.get("comment_content")
+    )
+    return redirect("/board/detail/" + str(board_id) + "/?page=" + cur_page)
+
+

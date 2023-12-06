@@ -45,10 +45,8 @@ fieldset input {
     outline: none;
     border: solid #bacec1 1px;
 }
-.close-icon {
-    margin-left: 10px;
-    color: black;
-    cursor: pointer;
+.del-btn:hover {
+    color: #0d6efd !important;
 }
 
 .select-type label {

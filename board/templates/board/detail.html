@@ -28,15 +28,39 @@
 
         <div class="post-content">
             <h2>{{ post.title }}</h2>
-            <p>{{ post.body }}</p>
+            <p style="white-space: pre-line;">{{ post.body }}</p>
             <p>작성자: {{ post.user.user_name }}</p>
             <p>작성일시: {{ post.created_datetime }}</p>
             
-            <div class="mt-4">
+            <div class="my-4">
                 <a href="/board/?page={{ cur_page }}" class="btn btn-primary" style="margin-right: 5px;">목록</a>
                 <button onclick="del_post({{ post.board_id }}, {{ cur_page }})" class="btn btn-danger" style="margin-left: 5px;">삭제</button>
             </div>
         </div>
+        <hr/>
+
+
+        <div class="comment-form">
+            <form action="{% url 'board:comment-write' %}" method="post">
+                {% csrf_token %}
+                <input name="board_id" value="{{ post.board_id }}" hidden />
+                <input name="cur_page" value="{{ cur_page }}" hidden />
+                <textarea name="comment_content" id="comment_content" rows="3" placeholder="댓글을 입력하세요" required></textarea>
+                <button type="submit" class="btn btn-primary comment-btn">댓글 작성</button>
+            </form>
+        </div>
+
+
+        
+        {% for comment in comments %}
+            <div class="comment">
+                <span style="color:black;">{{ comment.comment_content }} (작성자: {{ comment.user.user_name }})</span>
+                <a onClick="commnt_del('{{ comment.comment_id }}')" title="삭제" class="btn del-btn ml-3">
+                    <span class="material-icons close-icon">close</span>
+                </a>
+            </div>
+        {% endfor %}
+        
 
     </div>
 </div>

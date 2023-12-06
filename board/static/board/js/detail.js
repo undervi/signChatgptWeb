@@ -21,6 +21,7 @@ function getCSRFToken() {
     return null;
 }
 
+// 글 삭제
 function del_post(boardId, curPage) {
     Swal.fire({
         title: '정말 삭제하시겠습니까?',
@@ -34,7 +35,7 @@ function del_post(boardId, curPage) {
     }).then((result) => {
         if (result.isConfirmed) {
             // 실제 동작 수행
-            axios.post('/board/delete/' + boardId + '/', {
+            axios.post('/board/delete/', {
                 board_id: boardId
             }, {
                 headers: {
@@ -65,3 +66,5 @@ function del_post(boardId, curPage) {
         }
     });
 }
+
+// 댓글 삭제
