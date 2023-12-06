@@ -63,8 +63,6 @@ def kakao_login(request):
     request.session['user_id'] = user_id
     request.session['user_name'] = user_name
     request.session['user_image'] = profile_image_url
-    
-    print(request.session['user_name'])
 
     return redirect('/')
 

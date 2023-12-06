@@ -6,5 +6,5 @@ class Users(models.Model):
     user_name = models.CharField(max_length=50)
     user_email = models.CharField(max_length=50, null=True, blank=True)
     gender = models.CharField(max_length=6,  null=True, blank=True)
-    profile_imeage_url = models.CharField(max_length=100)
+    profile_imeage_url = models.CharField(max_length=100, null=True, blank=True)
     

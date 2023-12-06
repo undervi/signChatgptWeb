@@ -27,6 +27,7 @@ urlpatterns = [
     path('chatgpt/',include('chatgpt.urls')),
     path('signlanguagetochatgpt/',include('signlanguagetochatgpt.urls')),
     path('kakao_login/',include('kakao_login.urls')),
+    path('board/',include('board.urls')),
 ]
 
 from django.conf import settings

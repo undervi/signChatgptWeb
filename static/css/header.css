@@ -3,7 +3,7 @@ label {
 }
 
 p {
-    color : black;
+    color : #000000;
 }
 header, nav {
     color: #ffffe0;
@@ -36,7 +36,7 @@ nav div a.home {
 }
 
 .inner {
-    width: 1300px;
+    width: 65%;
     display: flex;
     justify-content: flex-end;
 }

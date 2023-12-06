@@ -1,0 +1,69 @@
+.main {
+    background-image: linear-gradient(to bottom, #bacec1, white); 
+    min-height: calc(100vh - 58.25px); 
+    padding:30px 0px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.main > div {
+    width: 60%;
+}
+
+.main div h2 {
+    color: black;
+    margin-bottom: 25px;
+}
+
+.description {
+    width: 100%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    outline: none;
+    border: solid #bacec1 1px;
+}
+.description p {
+    font-size: 15px !important;
+}
+
+.write_btn {
+    font-size: 15px !important;
+    padding: 6px 20px !important;
+}
+
+/* 테이블 */
+.raw-data {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: rgba(0, 0, 0, 0);
+}
+.raw-data:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 페이지바 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.pagination a {
+    color: #007bff;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #f2f2f2;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+}

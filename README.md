@@ -26,8 +26,30 @@
 
 <br />
 
-### 5️⃣ 느낀점
->..
+### 5️⃣ 이슈
+1 ) 로컬이 실행이 안되는 오류
+  - 원인: 장고는 기본적으로 8000번 포트를 사용하는데 해당 포트가 다른 프로세스에 의해 이미 사용하고 있어서 오류 발생
+  - 해결방법 (윈도우 기준)
+    ```
+    # 실행중인 8000번 포트 프로세스 찾기
+    $ netstat -ano | findStr 8000
+    # 찾은 프로세스 ID를 통해 종료 시키기
+    $ taskkill /f /pid "프로세스ID"
+    ```
+<br/>
+
+2 ) 카카오 로그인 - 프로필 이미지 미동의 후 가입 시 constraint failed 오류
+  - 원인: Users의 profile_imeage_url 필드에 NOT NULL 조건이 걸려있어서 오류 발생 (미지정시 기본으로 Null은 False가 된다.)
+  - 해결방법
+    ```
+    # models.py 수정
+    class Users(models.Model):
+      user_id = models.CharField(primary_key=True, max_length=100)
+      user_name = models.CharField(max_length=50)
+      user_email = models.CharField(max_length=50, null=True, blank=True)
+      gender = models.CharField(max_length=6,  null=True, blank=True)
+      profile_imeage_url = models.CharField(max_length=100, null=True, blank=True)
+    ```
 
 <br />
 

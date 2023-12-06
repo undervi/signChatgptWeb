@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extrahead %}
+{% comment %} <link rel="stylesheet" href="{% static 'board/detail_style.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<style>
+    .main {
+        background-image: linear-gradient(to bottom, #bacec1, white); 
+        min-height: calc(100vh - 58.25px); 
+        padding:30px 0px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    }
+    
+    .main > div {
+        width: 60%;
+    }
+    
+    .main div h2 {
+        color: black;
+        margin-bottom: 25px;
+    }
+    
+    .description {
+        width: 100%;
+        background-color: white;
+        padding: 30px;
+        border-radius: 5px;
+        outline: none;
+        border: solid #bacec1 1px;
+    }
+    .description p {
+        font-size: 15px !important;
+    }
+    
+    .write_btn {
+        font-size: 15px !important;
+        padding: 6px 20px !important;
+    }
+
+    /* 글 상세보기 */
+    .post-content {
+        margin-top: 130px;
+    }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // 알림창 선언
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 900,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    // csrf 토큰 가져오기
+    function getCSRFToken() {
+        // Django에서는 'csrftoken'이라는 이름의 쿠키에 CSRF 토큰이 저장됩니다.
+        const csrfCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('csrftoken='));
+        if (csrfCookie) {
+            return csrfCookie.split('=')[1];
+        }
+        return null;
+    }
+
+    function del_post(boardId) {
+        Swal.fire({
+            title: '정말 삭제하시겠습니까?',
+            text: "삭제한 데이터는 복구할 수 없습니다!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 실제 동작 수행
+                axios.post('/board/delete/' + boardId + '/', {
+                    board_id: boardId
+                }, {
+                    headers: {
+                    'X-CSRFToken': getCSRFToken()  // CSRF 토큰을 헤더에 추가
+                    }
+                })
+                .then(function (response){
+                    // 서버 응답 성공시 처리
+                    Swal.fire({
+                        icon: response.data.icon,
+                        title: response.data.message
+                    }).then((result) => {
+                        // Toast 메시지가 닫힌 후에 실행
+                        if (result.isConfirmed) { // 확인 버튼을 누르면
+                            if (response.data.icon == 'success') {
+                                window.location.href = '/board/';
+                            }
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    // 에러 발생시 처리
+                    Toast.fire({
+                        icon: "error",
+                        title: "에러가 발생했습니다. 다시 시도해 주세요."
+                    });
+                })
+            }
+        });
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="hero text-center text-white main">
+    <div>
+        <h2 class="display-6 mt-3">자유 게시판</h2>
+        
+        <div class="description mb-2">
+            <p class="lead m-0" style="text-align: left;">
+                1. 커뮤니티 매너를 지켜 즐겁게 소통하며, 자유게시판을 적절하게 이용해 주세요.<br/>
+                2. 비회원은 글이나 댓글 작성이 불가능하며, 조회만 가능합니다.
+            </p>
+        </div>
+
+        {% if request.session.user_id %}
+            <div><a class="btn btn-primary my-2 write_btn" hred="#" style="float:right;">새로운 글 작성</a></div>
+        {% endif %}
+
+        <div class="post-content">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.body }}</p>
+            <p>작성자: {{ post.user.user_name }}</p>
+            <p>작성일시: {{ post.created_datetime }}</p>
+            
+            <div class="mt-4">
+                <a href="#" class="btn btn-primary" style="margin-right: 5px;">수정</a>
+                <button onclick="del_post({{ post.board_id }})" class="btn btn-danger" style="margin-left: 5px;">삭제</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+

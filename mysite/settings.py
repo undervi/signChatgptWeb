@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chatgpt',
     'signlanguagetochatgpt',
-    'kakao_login'
+    'kakao_login',
+    'board'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'board/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="hero text-center text-white main">
+    <div>
+        <h2 class="display-6 mt-3">자유 게시판</h2>
+        
+        <div class="description mb-2">
+            <p class="lead m-0" style="text-align: left;">
+                1. 커뮤니티 매너를 지켜 즐겁게 소통하며, 자유게시판을 적절하게 이용해 주세요.<br/>
+                2. 비회원은 글이나 댓글 작성이 불가능하며, 조회만 가능합니다.
+            </p>
+        </div>
+
+        {% if request.session.user_id %}
+            <div><a class="btn btn-primary mt-2 write_btn" hred="#" style="float:right;">새로운 글 작성</a></div>
+        {% endif %}
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                  <th scope="col">제목</th>
+                  <th scope="col">작성자</th>
+                  <th scope="col">작성일시</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+                {% for post in posts %}
+                    <tr onclick="window.location.href='/board/detail/{{ post.board_id }}/'" class="raw-data">
+                        <td style="font-weight: bold;">{{ post.title }}</td>
+                        <td>{{ post.user.user_name }}</td>
+                        <td>{{ post.created_datetime }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ posts.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </span>
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">next</a>
+                    <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
