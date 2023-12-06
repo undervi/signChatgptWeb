@@ -32,7 +32,6 @@ def board_list(request):
 def board_detail(request, board_id):
     post = get_object_or_404(models.Board, board_id=board_id)
     comments = models.Comment.objects.filter(board=post, is_deleted=False).select_related("user").order_by('created_datetime').all()
-    print(comments)
     return render(request, "board/detail.html", {"post": post, "comments": comments, "cur_page": request.GET.get("page", 1)})
 
 

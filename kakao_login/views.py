@@ -68,7 +68,7 @@ def kakao_login(request):
 
 
 def logout(request):
-    print(request.session['user_id'])
+
     request.session['user_id'] = None
     request.session['user_name'] = None
     request.session['user_image'] = None
