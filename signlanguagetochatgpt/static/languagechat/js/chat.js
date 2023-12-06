@@ -68,7 +68,7 @@ document.getElementById('form-submit').addEventListener('click', function(event)
             icon: 'error',
             title: '첫번째 사진은 필수입니다.'
         });
-        imageElement
+        return;
     }
 
     // 확장자 유효성 검사
