@@ -105,6 +105,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': get_secret("client_id"),
             'client_secret': get_secret("client_secret"),
             'redirect_uri': get_secret("redirect_uri"),
+            'login_url': "https://kauth.kakao.com/oauth/authorize?client_id=4d70d2e541bb57ec044873e60bd3d352&redirect_uri=" + get_secret("redirect_uri") + "&response_type=code"
         }
     }
 }

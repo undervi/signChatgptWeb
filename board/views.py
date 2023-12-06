@@ -4,18 +4,9 @@ from board import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 import json
+from django.conf import settings
 
-
-# 데코레이터
-def user_id_required(view_func):
-    def _wrapped_view(request, *args, **kwargs):
-        if "user_id" in request.session:
-            return view_func(request, *args, **kwargs)
-        else:
-            # 세션에 user_id가 없는 경우, 게시글 목록 페이지로 리다이렉트
-            return redirect("/board/")  
-
-    return _wrapped_view
+kakao_login_url = settings.SOCIALACCOUNT_PROVIDERS['kakao']['APP']['login_url']
 
 
 # 목록
@@ -63,11 +54,12 @@ def board_delete(request):
 
 
 # 작성
-@user_id_required
 def board_write(request):
     if request.method == "POST":
         # 유저 정보 불러오기
         session_user_id = request.session.get("user_id", None)
+        if session_user_id is None: # 로그인 페이지로
+            return redirect(kakao_login_url)
         if models.Users.objects.filter(user_id=session_user_id).exists():
             user = models.Users.objects.get(user_id=session_user_id)
             
@@ -84,10 +76,11 @@ def board_write(request):
 
 # 댓글 작성   
 @require_POST
-@user_id_required
 def comment_write(request):
     # 유저 정보 불러오기
     session_user_id = request.session.get("user_id", None)
+    if session_user_id is None: # 로그인 페이지로
+        return redirect(kakao_login_url)
     if models.Users.objects.filter(user_id=session_user_id).exists():
         user = models.Users.objects.get(user_id=session_user_id)
     
@@ -101,5 +94,22 @@ def comment_write(request):
         comment_content = request.POST.get("comment_content")
     )
     return redirect("/board/detail/" + str(board_id) + "/?page=" + cur_page)
+
+
+# 댓글 삭제
+@require_POST
+def comment_delete(request):
+    json_data = json.loads(request.body.decode('utf-8'))
+    comment_id = json_data.get('comment_id') 
+    comment = get_object_or_404(models.Comment, comment_id=comment_id)
+    
+    if str(request.session.get("user_id", None)) == comment.user.user_id:
+        comment.is_deleted = True
+        comment.save()
+        data = {"message": "댓글을 삭제하였습니다.", "icon": "success"}
+    else:
+        data = {"message": "작성자만 삭제할 수 있습니다.", "icon": "error"}
+         
+    return JsonResponse(data)
 
 

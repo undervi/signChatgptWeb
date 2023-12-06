@@ -22,9 +22,7 @@
             </p>
         </div>
 
-        {% if request.session.user_id %}
-            <div><a class="btn btn-primary mt-2 write_btn" href="{% url 'board:write' %}" style="float:right;">새로운 글 작성</a></div>
-        {% endif %}
+        <div><a class="btn btn-primary mt-2 write_btn" href="{% url 'board:write' %}" style="float:right;">새로운 글 작성</a></div>
 
         <div class="post-content">
             <h2>{{ post.title }}</h2>
@@ -45,8 +43,8 @@
                 {% csrf_token %}
                 <input name="board_id" value="{{ post.board_id }}" hidden />
                 <input name="cur_page" value="{{ cur_page }}" hidden />
-                <textarea name="comment_content" id="comment_content" rows="3" placeholder="댓글을 입력하세요" required></textarea>
-                <button type="submit" class="btn btn-primary comment-btn">댓글 작성</button>
+                <textarea name="comment_content" id="comment_content" rows="3" placeholder="댓글을 입력하세요" maxlength="100" required></textarea>
+                <button type="submit" id="form-submit" class="btn btn-primary comment-btn">댓글 작성</button>
             </form>
         </div>
 

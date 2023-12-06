@@ -9,5 +9,6 @@ urlpatterns = [
     path('delete/', views.board_delete, name='delte'),
     path('write/',views.board_write, name='write'),
     path('comment/wrtie/', views.comment_write, name='comment-write'),
+    path('comment/delete/', views.comment_delete, name='comment-delete'),
     # 글 수정
 ]
