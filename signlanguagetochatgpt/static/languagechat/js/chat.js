@@ -4,8 +4,14 @@ function addFile(){
 }
 
 function deepCopy()  {
-    // 'test' node 선택
-    const fileModule = document.getElementById('file-module-' + 0);
+    // 'test' node 선택 (제일 마지막 노드 선택)
+    const spanElements = document.querySelectorAll('#sign-form > span');
+    let lastId = 0;
+    spanElements.forEach(function (spanElement) {
+        const spanId = parseInt(spanElement.id.split('-')[2]);
+        lastId = spanId > lastId ? spanId : lastId;
+    });
+    const fileModule = document.getElementById('file-module-' + String(lastId));
 
     // 노드 복사하기 (deep copy)
     const newNode = fileModule.cloneNode(true);
@@ -18,6 +24,10 @@ function deepCopy()  {
     const deleteButton = newNode.querySelector('.del-btn');
     deleteButton.setAttribute('onClick', "fileDel('" + newNode.id + "')");
     deleteButton.setAttribute('disabled', false);
+
+    // 복사된 노드에 value 삭제
+    const fileInput = newNode.querySelector('input');
+    fileInput.value = '';
 
     // 복사한 노드 붙여넣기
     fileModule.after(newNode);
