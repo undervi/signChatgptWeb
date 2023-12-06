@@ -5,9 +5,6 @@
 <link rel="stylesheet" href="{% static 'board/common.css' %}">
 <link rel="stylesheet" href="{% static 'board/detail_style.css' %}">
 <script src="{% static 'board/js/detail.js' %}" defer></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -32,6 +29,7 @@
             
             <div class="my-4">
                 <a href="/board/?page={{ cur_page }}" class="btn btn-primary" style="margin-right: 5px;">목록</a>
+                <a href="/board/modify/{{ post.board_id }}/?page={{ cur_page }}" class="btn btn-primary" style="margin: 0 5px;">수정</a>
                 <button onclick="del_post({{ post.board_id }}, {{ cur_page }})" class="btn btn-danger" style="margin-left: 5px;">삭제</button>
             </div>
         </div>

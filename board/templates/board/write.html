@@ -4,6 +4,7 @@
 {% block extrahead %}
 <link rel="stylesheet" href="{% static 'board/common.css' %}">
 <link rel="stylesheet" href="{% static 'board/write.css' %}">
+<script src="{% static 'board/js/modify.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -18,22 +19,25 @@
             </p>
         </div>
 
-        <form action="{% url 'board:write' %}" method="post">
-            {% csrf_token %}
-        
-            <label for="title">제목</label>
-            <input type="text" id="title" name="title" maxlength="50" required>
-            <br>
-        
-            <label for="body">내용</label>
-            <textarea id="body" name="body" rows="4" required></textarea>
-            <br>
+        {% if type == "write" %}
+            <form action="{% url 'board:write' %}" method="post">
+        {% else %}
+            <form action="{% url 'board:modify_post' %}" method="post">   
+        {% endif %}
+                {% csrf_token %}
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" maxlength="50" value="{{ post.title }}" required>
+                <br>
             
-            <div class="my-4">
-                <a href="/board/?page={{ cur_page }}" class="btn btn-primary" style="margin-right: 5px;">목록</a>
-                <button type="submit" class="btn btn-primary" style="margin-left:5px;">작성</button>
-            </div>
-        </form>
+                <label for="body">내용</label>
+                <textarea id="body" name="body" rows="4" required>{{ post.body }}</textarea>
+                <br>
+                
+                <div class="my-4">
+                    <a href="/board/?page={{ cur_page }}" class="btn btn-primary" style="margin-right: 5px;">목록</a>
+                    <button {% if type == "write" %}type="submit"{% else %}type="button" onClick="board_modify('{{ post.board_id }}', '{{ cur_page }}')"{% endif %} class="btn btn-primary" style="margin-left:5px;">{% if type == "write" %}작성{% else %}수정{% endif %}</button>
+                </div>
+            </form>
 
 
     </div>

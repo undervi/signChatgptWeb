@@ -9,7 +9,7 @@ from django.conf import settings
 kakao_login_url = settings.SOCIALACCOUNT_PROVIDERS['kakao']['APP']['login_url']
 
 
-# 목록
+# 게시글 목록
 def board_list(request):
     # 게시판 리스트 가져오기 (is_deleted가 True인 것 제외)
     posts = models.Board.objects.select_related("user").exclude(is_deleted=True).order_by('-created_datetime').all()
@@ -28,7 +28,7 @@ def board_list(request):
     return render(request, "board/list.html", {"posts": posts})
 
 
-# 상세
+# 게시글 상세
 def board_detail(request, board_id):
     post = get_object_or_404(models.Board, board_id=board_id)
     comments = models.Comment.objects.filter(board=post, is_deleted=False).select_related("user").order_by('created_datetime').all()
@@ -36,7 +36,7 @@ def board_detail(request, board_id):
     return render(request, "board/detail.html", {"post": post, "comments": comments, "cur_page": request.GET.get("page", 1)})
 
 
-# 삭제
+# 게시글 삭제
 @require_POST
 def board_delete(request):
     json_data = json.loads(request.body.decode('utf-8'))
@@ -53,7 +53,7 @@ def board_delete(request):
     return JsonResponse(data)
 
 
-# 작성
+# 게시글 작성
 def board_write(request):
     if request.method == "POST":
         # 유저 정보 불러오기
@@ -72,7 +72,41 @@ def board_write(request):
         return redirect("/board/detail/" + str(post.board_id) + "/")
     else:
         # 게시글 작성 페이지로 이동
-        return render(request, "board/write.html", {"cur_page": request.GET.get("page", 1)})
+        context = {
+            "cur_page": request.GET.get("page", 1),
+            "type": "write"
+        }
+        return render(request, "board/write.html", context)
+    
+    
+# 게시글 수정 - GET
+def board_modify_get(request, board_id):
+    post = models.Board.objects.get(board_id=board_id)
+    context = {
+        "cur_page": request.GET.get("page", 1),
+        "post": post,
+        "type": "modify"
+    }
+    return render(request, "board/write.html", context)
+
+
+# 게시글 수정 - POST
+@require_POST
+def board_modify_post(request):
+    json_data = json.loads(request.body.decode('utf-8'))
+    board_id = json_data.get('board_id')
+    post = get_object_or_404(models.Board, board_id=board_id)
+    
+    if str(request.session.get("user_id", None)) == post.user.user_id:
+        post.title = json_data.get('title')
+        post.body = json_data.get('body')
+        post.save()
+        data = {"message": "게시글을 수정하였습니다.", "icon": "success"}
+    else:
+        data = {"message": "작성자만 수정할 수 있습니다.", "icon": "error"}
+ 
+    return JsonResponse(data)
+    
 
 # 댓글 작성   
 @require_POST
