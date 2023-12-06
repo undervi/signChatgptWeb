@@ -50,7 +50,7 @@
         
         {% for comment in comments %}
             <div class="comment">
-                <span style="color:black;">{{ comment.comment_content }} (작성자: {{ comment.user.user_name }})</span>
+                <span style="color:black;">{{ comment.comment_content }} | {{ comment.created_datetime }} | 작성자: {{ comment.user.user_name }}</span>
                 <a onClick="commnt_del('{{ comment.comment_id }}')" title="삭제" class="btn del-btn ml-3">
                     <span class="material-icons close-icon">close</span>
                 </a>
