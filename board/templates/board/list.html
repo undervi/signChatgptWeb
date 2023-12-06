@@ -18,7 +18,7 @@
             </p>
         </div>
 
-        <div><a class="btn btn-primary mt-2 write_btn" href="{% url 'board:write' %}" style="float:right;">새로운 글 작성</a></div>
+        <div><a class="btn btn-primary mt-2 write_btn" href="/board/write/?page={{ posts.number }}" style="float:right;">새로운 글 작성</a></div>
 
         <table class="table mt-4">
             <thead>

@@ -72,7 +72,7 @@ def board_write(request):
         return redirect("/board/detail/" + str(post.board_id) + "/")
     else:
         # 게시글 작성 페이지로 이동
-        return render(request, "board/write.html")
+        return render(request, "board/write.html", {"cur_page": request.GET.get("page", 1)})
 
 # 댓글 작성   
 @require_POST
