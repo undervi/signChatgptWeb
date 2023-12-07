@@ -1,6 +1,6 @@
 # 수어 대화형 AI 웹 서비스
 
-![](/static/image/home.png)
+![](/static/image/image.png)
 <a href="http://13.57.32.184/">수어 대화형 AI 웹 서비스로 이동</a>
 
 
