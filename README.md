@@ -96,5 +96,18 @@
 <div id="testing">
 
   ## 🎥 시연 영상
+  1. 카카오톡 로그인
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/bc4350ae-6b3b-404e-b918-98494c6a90d4"></video><br/>
+  
+  2. ChatGPI에게 질문하기
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/706f566b-b84e-4064-bc2e-2a91a3cc36f7"></video>
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/7a98965e-fa0d-4009-aa94-6e4ef2d4d0c2"></video><br/>
+
+  3. 수어로 ChatGPT에게 질문하기
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/2629a635-4864-40c9-a85b-d7b87a94177f"></video>
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/301a9b20-c172-4cb7-a16f-561d3d6934fa"></video><br/>
+
+  4. 자유 게시판  
+  <video src="https://github.com/undervi/sign-chatgpt-web/assets/95211722/f4486a30-d78d-4151-90a6-8bc267eca17d"></video>
 
 </div>
