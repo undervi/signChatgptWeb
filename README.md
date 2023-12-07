@@ -41,6 +41,7 @@
 2 ) 카카오 로그인 - 프로필 이미지 미동의 후 가입 시 constraint failed 오류
   - 원인: Users의 profile_imeage_url 필드에 NOT NULL 조건이 걸려있어서 오류 발생 (미지정시 기본으로 Null은 False가 된다.)
   - 해결방법
+
     ```
     # models.py 수정
     class Users(models.Model):
@@ -50,8 +51,32 @@
       gender = models.CharField(max_length=6,  null=True, blank=True)
       profile_imeage_url = models.CharField(max_length=100, null=True, blank=True)
     ```
-
 <br />
+
+3 ) AWS EC2 - CPU 사용률 100% 강제 종료 오류<br/>
+
+![](/static/image/cpu100.png)<br/>
+
+- 원인: 서버 실행 도중 접속자가 많이 몰려 CPU 사용률이 99.9%를 넘어서며 서버가 강제 종료되었다.
+- 해결방법: 스토리지 용량 늘리기 (16GB -> 30GB)
+
+
+  첫 번째, AWS EC2에서 용량을 늘려준다.
+  - EC2 -> 인스턴스 -> 스토리지 -> 볼륨 용량 늘리기
+
+  두 번째, 우분투에서 적용 
+  - 볼륨에 확장해야 하는 파티션이 있는지 확인하려면 <code>lsblk</code> 명령을 사용해서 연결된 블록 디바이스에 대한 정보를 불러온다.
+
+  - 리눅스 파티션 크기 조정 (xvda1 파티션의 크기를 조정함)</br>
+  <code>$ sudo growpart /dev/xvda 1</code>
+
+  - 이때, 블록 디바이스에 남은 공간이 없다는 오류가 발생한다면 임시 파일 시스템 tmpfs를 /tmp에 탑재하여 이를 방지한다.<br/>
+  <code>$ sudo mount -o size=10M, rw, nodev, nosuid -t tmpfs tmpfs /tmp</code>
+
+  - 조정 후 재부팅 하면 xvda1 파티션의 크기가 늘어남 -> <code>df -h</code> 로 확인
+
+<br/>
+
 
 <div id="service">
  
@@ -69,6 +94,7 @@
   ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=MLflow&logoColor=white)
   ![VScode](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white)
   ![AWS](https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+  ![Amazon EC2](https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
   
   ### Development
   ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white)
@@ -77,6 +103,9 @@
   ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=TensorFlow&logoColor=white)
   ![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=Keras&logoColor=white)
   ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
+  ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white)
+  ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)
+  ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
   
 </div><br />
 
