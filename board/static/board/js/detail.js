@@ -1,16 +1,3 @@
-// 알림창 선언
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'center',
-    showConfirmButton: false,
-    timer: 900,
-    timerProgressBar: false,
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-});
-
 // 글 삭제
 function del_post(boardId, curPage) {
     Swal.fire({
