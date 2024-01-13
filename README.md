@@ -1,8 +1,6 @@
 # 수어 대화형 AI 웹 서비스
 
 ![](/static/image/image.png)
-<a href="http://54.193.7.218/" target="_blank">수어 대화형 AI 웹 서비스로 이동</a>
-
 
 ### 0️⃣ 기간 : 2023.12.04 ~ 2023.12.07<br/>
 
